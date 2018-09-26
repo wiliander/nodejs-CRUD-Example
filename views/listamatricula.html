@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <!-- <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+        crossorigin="anonymous">
+    <title>Listagem de alunos</title>
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            $(function () {
+                $(document).on('click', '.btn-danger', function (e) {
+
+                    if (confirm("Você deseja realmente exluir?")) {
+                        var idmatricula = $(this).closest('tr').find('td[data-nome]').data('nome');
+                        $.ajax({
+                            data: {
+                                id: idmatricula
+                            },
+                            dataType: 'json',
+                            url: './excluir',
+                            type: 'DELETE',
+                            success: function (retorno) {
+                                alert(retorno.msg);
+                                carregaLista();
+                            },
+                            error: function () {
+                                alert("Ocorreu um erro na requisição");
+                            }
+                        })
+                    }
+                    else {
+                        return false;
+                    }
+                });
+            });
+        });
+
+        function carregaLista() {
+            $.ajax({
+                data: "",
+                dataType: 'json',
+                url: './carregamatricula',
+                type: 'GET',
+                success: function (retorno) {
+                    debugger;
+
+                    //carregarCombo(data);
+                    carregaDados(retorno.data);
+                },
+                error: function () {
+                    alert("Ocorreu um erro na requisição");
+                }
+            })
+        }
+
+
+        function carregaDados(data) {
+
+            var corpo = "<tbody>";
+
+            for (var i = 0, length = data.length; i < length; i++) {
+                debugger;
+
+                var aluno = data[i];
+                var urlAlterar = './cadastroaluno?idaluno=' + aluno.id_aluno;
+
+                corpo +=
+                    "<tr>" +
+                    "<td data-nome='" + aluno.id_aluno + "'style='display:none;'>" +
+                    "<td>" + aluno.ds_nome + "</td>" +
+                    "<td>" + aluno.idade + "</td>" +
+                    "<td>" + aluno.telefone + "</td>" +
+                    "<td>" + aluno.ds_email + "</td>" +
+                    "<td><a href=" + urlAlterar + ">" +
+                    "<button class='btn btn-primary'>alterar</button>" +
+                    "</td></a>" +
+                    "<td><button class='btn btn-danger'>excluir</button></td>" +
+                    "</tr></tbody>"
+
+            }
+
+            corpo += "</tbody>"
+            var elementoHtml = document.getElementById("lista");
+            elementoHtml.innerHTML = corpo;
+        }
+
+        carregaLista();
+    </script>
+</head>
+
+<body>
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="./">Home</a>
+            </div>
+
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li class="active">
+                        <a href="./listaralunos">Alunos
+                            <span class="sr-only">(current)</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="./listarcursos">Cursos</a>
+                    </li>
+                    <li>
+                        <a href="#">Matriculas</a>
+                    </li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="#">
+                            <span class="glyphicon glyphicon-user"></span> Sign Up</a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <span class="glyphicon glyphicon-log-in"></span> Login</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-1">
+            </div>
+            <div class="col-lg-10">
+                <h1>Listagem de alunos</h1>
+                <a href="./cadastroaluno">
+                    <button class="btn btn-success">Novo</button>
+                </a>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <!-- <th>
+                                Códido
+                            </th> -->
+                            <th>
+                                Nome
+                            </th>
+                            <th>
+                                idade
+                            </th>
+                            <th>
+                                telefone
+                            </th>
+                            <th>
+                                Email
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody id="lista">
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-lg-1">
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

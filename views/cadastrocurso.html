@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <title>Cadastro de Curso</title>
+</head>
+
+<body>
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="./">Home</a>
+            </div>
+
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a href="./listaralunos">Alunos</a>
+                    </li>
+                    <li>
+                        <a href="./listarcursos">Cursos</a>
+                    </li>
+                    <li>
+                        <a href="./listarmatriculas">Matriculas</a>
+                    </li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="#">
+                            <span class="glyphicon glyphicon-user"></span> Sign Up</a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <span class="glyphicon glyphicon-log-in"></span> Login</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-2">
+
+            </div>
+            <div class="col-lg-8">
+                <h1>Cadastro de curso</h1>
+                <fieldset title="Dados Cadastrais">
+                    <form class="form-horizontal" action="./salvarcurso" method="post">
+                        <input type="hidden" name="idcurso" id="idcurso" value="<%= idcurso %>" />
+
+                        <div class="form-group">
+                            <label class="control-label col-sm-2" for="nome">Nome</label>
+                            <div class="col-sm-10">
+                                <input type="text" name="nome" id="nome" maxlength="70" required value="<%= nome %>" />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-sm-2" for="descricao">Descrição</label>
+                            <div class="col-sm-10">
+                                <input type="text" name="descricao" maxlength="150" required value="<%= descricao %>" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-2" for="numerovagas">Número de vagas</label>
+                            <div class="col-sm-10">
+                                <input type="text" name="numerovagas" required value="<%= numerovagas %>" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button type="submit" class="btn btn-success">Salvar</button>
+                                <a href="./listaralunos">
+                                    <button type="button" class="btn btn-danger">Cancelar</button>
+                                </a>
+                            </div>
+                        </div>
+                    </form>
+                </fieldset>
+            </div>
+            <div class="col-lg-2">
+
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

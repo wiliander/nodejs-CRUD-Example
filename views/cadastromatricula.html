@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <title>Cadastro de Curso</title>
+    <script>
+
+        function carregaLista() {
+            $.ajax({
+                data: "",
+                dataType: 'json',
+                url: './carregacursos',
+                type: 'GET',
+                success: function (retorno) {
+
+                    carregarCombo(retorno.data);
+                },
+                error: function () {
+                    alert("Ocorreu um erro na requisição");
+                }
+            })
+        }
+
+        function carregarCombo(data) {
+
+            var listaDados = data;
+
+            for (var i = 0; i < listaDados.length; i++) {
+                $("#combocursos").prepend($('<option>', {
+
+                    value: listaDados[i].id_curso,
+                    text: listaDados[i].ds_nome
+                }));
+            }
+        }
+
+        function carregaListaAluno(){
+            $.ajax({
+                data: "",
+                dataType: 'json',
+                url: './carregaalunos',
+                type: 'GET',
+                success: function (retorno) {
+
+                    carregarComboAluno(retorno.data);
+                },
+                error: function () {
+                    alert("Ocorreu um erro na requisição");
+                }
+            })
+        }
+
+        function carregarComboAluno(data){
+            var listaDados = data;
+
+            for (var i = 0; i < listaDados.length; i++) {
+                $("#comboalunos").prepend($('<option>', {
+
+                    value: listaDados[i].id_aluno,
+                    text: listaDados[i].ds_nome
+                }));
+            }
+        }
+
+        carregaLista();
+        carregaListaAluno();
+
+
+    </script>
+</head>
+
+<body>
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="./">Home</a>
+            </div>
+
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a href="./listaralunos">Alunos</a>
+                    </li>
+                    <li>
+                        <a href="./listarcursos">Cursos</a>
+                    </li>
+                    <li>
+                        <a href="./listarmatriculas">Matriculas</a>
+                    </li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="#">
+                            <span class="glyphicon glyphicon-user"></span> Sign Up</a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <span class="glyphicon glyphicon-log-in"></span> Login</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-2">
+
+            </div>
+            <div class="col-lg-8">
+                <h1>Cadastro de matriculas</h1>
+                <fieldset title="Dados Cadastrais">
+                    <form class="form-horizontal" action="./salvarmatricula" method="post">
+                        <input type="hidden" name="idmatricula" id="idmatricula" value="<%= idmatricula %>" />
+
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="datamatricula">Data</label>
+                            <div class="col-md-4">
+                                <input class="form-control input-md" type="date" id="datamatricula" name="datamatricula" value="<%= datamatricula %>">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="aluno">Aluno</label>
+                            <div class="col-md-4">
+                                <select id="comboalunos" name="idaluno" class="form-control">
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="curso">Curso</label>
+                            <div class="col-md-4">
+                                <select id="combocursos" name="idcurso" class="form-control">
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-offset-4 col-md-8">
+                                <button type="submit" class="btn btn-success">Salvar</button>
+                                <a href="./listarmatriculas">
+                                    <button type="button" class="btn btn-danger">Cancelar</button>
+                                </a>
+                            </div>
+                        </div>
+                    </form>
+                </fieldset>
+            </div>
+            <div class="col-lg-2">
+
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

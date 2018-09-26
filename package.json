@@ -1,0 +1,19 @@
+{
+  "name": "terceiro-projeto",
+  "version": "1.0.0",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.2",
+    "nodemailer": "^4.6.7",
+    "pg": "^7.4.3",
+    "ejs": "~2.5.7"
+  },
+  "devDependencies": {},
+  "description": ""
+}

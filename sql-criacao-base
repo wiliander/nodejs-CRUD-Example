@@ -1,0 +1,42 @@
+-- Criação do banco de dados
+CREATE DATABASE banconode;
+
+-- Criação da tabela aluno
+CREATE TABLE aluno (
+    id_aluno bigserial primary key,
+    ds_nome varchar(100) NOT NULL,
+    ds_email varchar(100) NOT NULL,
+    idade integer NOT NULL,
+    telefone varchar(15) NOT NULL
+);
+
+-- Criação da tabela curso
+CREATE TABLE curso (
+    id_curso bigserial primary key,
+    ds_nome varchar(100) NOT NULL,
+    ds_descricao varchar(100) NOT NULL,
+    nr_vagas integer NOT NULL
+);
+
+CREATE TABLE  matricula (
+   id_matricula bigserial primary key,
+   data_matricula timestamp NOT NULL,
+   id_aluno int NOT NULL,
+   id_curso int NOT NULL
+);
+
+ALTER TABLE matricula 
+   ADD CONSTRAINT fk_aluno
+   FOREIGN KEY (id_aluno) 
+   REFERENCES aluno(id_aluno);
+
+ALTER TABLE matricula 
+   ADD CONSTRAINT fk_curso
+   FOREIGN KEY (id_curso) 
+   REFERENCES curso(id_curso);
+
+
+
+   
+
+
